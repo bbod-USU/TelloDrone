@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tello_Drone
+﻿namespace Tello_Drone
 {
     class Program
     {
@@ -9,9 +7,6 @@ namespace Tello_Drone
             var bootstrapper = BootStrapper.BootstrapSystem(new CoreModule());
             var missions = bootstrapper.Resolve<IMissions>();
             var consoleLogger = bootstrapper.Resolve<IConsoleLogger>();
-            var droneConstants = new DroneConstants();
-            droneConstants.DronePortNumber = 1;
-            droneConstants.DroneIPAddress = "d";
             var consoleClient = new ConsoleClient(missions, consoleLogger);
             consoleClient.Run();
         }

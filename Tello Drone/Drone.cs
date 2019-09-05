@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace Tello_Drone
 {
     public class Drone

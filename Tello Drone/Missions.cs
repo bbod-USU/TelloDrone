@@ -1,37 +1,39 @@
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using DryIoc;
-
 namespace Tello_Drone
 {
     public class Missions : IMissions
     {
-        private readonly IConsoleLogger _consoleLogger;
         private Drone _drone;
-        private int setupRetry = 0;
+        private int _setupRetry;
         
-        public Missions( IDroneFactory droneFactory, IConsoleLogger consoleLogger)
+        public Missions( IDroneFactory droneFactory)
         {
-            _consoleLogger = consoleLogger;
             _drone = droneFactory.CreateDrone;
         }
 
         public void RunMission1()
         {
             MissionSetup();
-            _drone.Down(3);
-            _drone.Up(3);
+            _drone.Up(20);
+            _drone.Down(20);
+            MissionTeardown();
         }
 
         private void MissionSetup()
         {
             var inCommandMode = false;
-            while (inCommandMode != true && setupRetry < 3)
+            while (inCommandMode != true && _setupRetry < 3)
             {
                 inCommandMode = _drone.Command();
-                setupRetry++;
-                _consoleLogger.Log(inCommandMode.ToString());
+                _setupRetry++;
             }
+            
+            if (!_drone.InitialTakeOff())
+                _drone.InitialTakeOff();
+        }
+
+        private void MissionTeardown()
+        {
+            _drone.Land();
         }
 
     }

@@ -1,39 +1,36 @@
 using System;
-using System.Diagnostics;
 using System.Net;
-using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using System.Xml.Schema;
 
 namespace Tello_Drone
 {
     internal class UdpClientWrapper : IUdpClientWrapper
     {
         private readonly UdpClient _client;
-        private int retryCount = 0;
         private IPEndPoint _sendIpEndPoint;
-        private IDroneConstants _droneConstants;
         private IConsoleLogger _consoleLogger;
 
 
         public UdpClientWrapper(IConsoleLogger consoleLogger)
         {
             _consoleLogger = consoleLogger;
-           _droneConstants = new DroneConstants();
            consoleLogger.Log("Enter Drone IPAddress:");
-            _droneConstants.DroneIPAddress = Console.ReadLine();
+            var droneIpAddress = Console.ReadLine();
             consoleLogger.Log("Enter Drone Port Number:");
-            _droneConstants.DronePortNumber = Convert.ToInt32(Console.ReadLine());
-            _client = new UdpClient(_droneConstants.DroneIPAddress, _droneConstants.DronePortNumber);
-            _sendIpEndPoint = new IPEndPoint(IPAddress.Parse(_droneConstants.DroneIPAddress), _droneConstants.DronePortNumber);
+           var dronePortNumber = Convert.ToInt32(Console.ReadLine());
+            if (droneIpAddress != null)
+            {
+                _client = new UdpClient(droneIpAddress ?? throw new NullReferenceException($"{nameof(droneIpAddress)} was null."), dronePortNumber);
+                _sendIpEndPoint = new IPEndPoint(IPAddress.Parse(droneIpAddress),
+                    dronePortNumber);
+            }
         } 
-        public bool TrySend(string message, int timeout)
+        public bool TrySend(string message, int timeout, int maxRetries)
         {
+            _consoleLogger.Log($"Sending command to drone: {message}");
             bool successfullFlag = false;
-            while(retryCount < 3 && successfullFlag == false)
+            while(maxRetries >= 0 && successfullFlag == false)
             {
                 _client.Client.ReceiveTimeout = timeout;
                 _client.Send(Encoding.ASCII.GetBytes(message), message.Length);
@@ -42,25 +39,24 @@ namespace Tello_Drone
                 {
                     var bytes = _client.Receive(ref _sendIpEndPoint);
                     var returnMessage = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
+                    _consoleLogger.Log($"Drone responded with: {returnMessage}");
                     if (returnMessage == "ok")
                         successfullFlag = true;
-                    _consoleLogger.Log($"successfull flag = {successfullFlag}");
-
                 }
                 catch
                 {
-                    _consoleLogger.Log("Did not get a response from the drone retrying.");
+                    _consoleLogger.Log($"Did not get a response from the drone will attempt {maxRetries.ToString()} more times");
                 }
-                retryCount++;
+
+                maxRetries--;
             }
             return successfullFlag;
         }
-        
-       public void Dispose()
-       {
-           _client?.Dispose();
-       }
-        
 
+
+        public void Dispose()
+        {
+            _client?.Dispose();
+        }
     }
 }
