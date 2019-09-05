@@ -8,10 +8,8 @@ namespace Tello_Drone
         {
             container.Register<IDroneFactory, DroneFactory>(Reuse.Singleton);
             container.Register<IDroneCommands, DroneComands>(Reuse.Singleton);
-            container.Register<IDrone, Drone>(Reuse.Singleton);
             container.Register<IMissions, Missions>(Reuse.Singleton);
             container.Register<IConsoleLogger, ConsoleLogger>(Reuse.Singleton);
-            //container.Register<IUdpClientWrapper, UdpClientWrapper>(Reuse.Singleton);
         }
 
         public void Resolve(IContainer container)

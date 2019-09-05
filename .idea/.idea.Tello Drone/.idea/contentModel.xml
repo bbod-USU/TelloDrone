@@ -22,7 +22,6 @@
         <e p="DroneConstants.cs" t="Include" />
         <e p="DroneFactory.cs" t="Include" />
         <e p="IConsoleLogger.cs" t="Include" />
-        <e p="IDrone.cs" t="Include" />
         <e p="IDroneCommands.cs" t="Include" />
         <e p="IDroneConstants.cs" t="Include" />
         <e p="IDroneFactory.cs" t="Include" />

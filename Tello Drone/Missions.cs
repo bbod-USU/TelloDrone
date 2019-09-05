@@ -1,4 +1,6 @@
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using DryIoc;
 
 namespace Tello_Drone
 {
@@ -6,6 +8,7 @@ namespace Tello_Drone
     {
         private readonly IConsoleLogger _consoleLogger;
         private Drone _drone;
+        private int setupRetry = 0;
         
         public Missions( IDroneFactory droneFactory, IConsoleLogger consoleLogger)
         {
@@ -15,12 +18,20 @@ namespace Tello_Drone
 
         public void RunMission1()
         {
-            _drone.Down();
-            _drone.Up();
+            MissionSetup();
+            _drone.Down(3);
+            _drone.Up(3);
         }
 
         private void MissionSetup()
         {
+            var inCommandMode = false;
+            while (inCommandMode != true && setupRetry < 3)
+            {
+                inCommandMode = _drone.Command();
+                setupRetry++;
+                _consoleLogger.Log(inCommandMode.ToString());
+            }
         }
 
     }

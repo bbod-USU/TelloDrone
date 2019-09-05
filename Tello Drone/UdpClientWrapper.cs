@@ -14,7 +14,7 @@ namespace Tello_Drone
     {
         private readonly UdpClient _client;
         private int retryCount = 0;
-        private IPEndPoint _ipEndPoint;
+        private IPEndPoint _sendIpEndPoint;
         private IDroneConstants _droneConstants;
         private IConsoleLogger _consoleLogger;
 
@@ -28,27 +28,28 @@ namespace Tello_Drone
             consoleLogger.Log("Enter Drone Port Number:");
             _droneConstants.DronePortNumber = Convert.ToInt32(Console.ReadLine());
             _client = new UdpClient(_droneConstants.DroneIPAddress, _droneConstants.DronePortNumber);
-            _ipEndPoint = new IPEndPoint(IPAddress.Parse(_droneConstants.DroneIPAddress), _droneConstants.DronePortNumber);
+            _sendIpEndPoint = new IPEndPoint(IPAddress.Parse(_droneConstants.DroneIPAddress), _droneConstants.DronePortNumber);
         } 
-        public bool TrySend(string message, int timeOut)
+        public bool TrySend(string message, int timeout)
         {
             bool successfullFlag = false;
             while(retryCount < 3 && successfullFlag == false)
             {
-                _client.Client.ReceiveTimeout = 1_500;
-                _client.Send(Encoding.UTF8.GetBytes(message), 1);
+                _client.Client.ReceiveTimeout = timeout;
+                _client.Send(Encoding.ASCII.GetBytes(message), message.Length);
 
                 try
                 {
-                    var bytes = _client.Receive(ref _ipEndPoint);
+                    var bytes = _client.Receive(ref _sendIpEndPoint);
                     var returnMessage = Encoding.ASCII.GetString(bytes, 0, bytes.Length);
-                    if (returnMessage == "Ok")
+                    if (returnMessage == "ok")
                         successfullFlag = true;
+                    _consoleLogger.Log($"successfull flag = {successfullFlag}");
 
                 }
                 catch
                 {
-                    _consoleLogger.Log("SHIT BROKE");
+                    _consoleLogger.Log("Did not get a response from the drone retrying.");
                 }
                 retryCount++;
             }

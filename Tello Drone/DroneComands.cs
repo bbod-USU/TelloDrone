@@ -1,5 +1,7 @@
 using System;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
+using System.Xml.Schema;
 
 namespace Tello_Drone
 {
@@ -13,17 +15,38 @@ namespace Tello_Drone
             _udpClient = udpClient;
         }
 
-        public bool Forward() => SendCommand("Forward");
+        public void Forward(int x) => SendCommand($"forward {x}");
+        public void Reverse(int x) => SendCommand($"back {x}");
+        public void Up(int z) => SendCommand($"up {z}");
+        public void Down(int z) => SendCommand($"down {z}");
+        public void Left(int y) => SendCommand($"left {y}");
+        public void Right(int y) => SendCommand($"right {y}");
+        public bool Command() => TrySendCommand("command");
+        public bool InitialTakeOff() => TrySendCommand("takeoff");
+        public void TakeOff() => SendCommand("takeoff");
+        public void Land() => SendCommand("land");
+        public void RotateClockWise(int r) => SendCommand($"cw {r}");
+        
+        
+        
+        
+        
 
-        public bool Reverse() => SendCommand("Reverse");
-
-        public bool Up() => SendCommand("Up");
-
-        public bool Down() => SendCommand("Down");
-
-        private bool SendCommand(string message)
+        private void SendCommand(string message)
         {
-            return _udpClient.TrySend(message, 1_500);
+            var returnValue = _udpClient.TrySend(message, 0_500);
+            if (returnValue == false)
+                SendCommand("land");
+        }
+
+        private bool TrySendCommand(string message)
+        {
+            return _udpClient.TrySend(message, 0_500);
+
         }
     }
 }
+
+
+
+
