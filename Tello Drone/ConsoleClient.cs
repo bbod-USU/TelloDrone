@@ -5,6 +5,7 @@ namespace Tello_Drone
 {
     public class ConsoleClient
     {
+        
         private readonly IMissions _missions;
         private readonly IConsoleLogger _consoleLogger;
 
@@ -16,7 +17,6 @@ namespace Tello_Drone
 
         public void Run()
         {
-
             _consoleLogger.Log("Choose a mission to run.");
             _consoleLogger.Log("1: Mission 1");
             _consoleLogger.Log("2: Mission 2");
@@ -36,6 +36,7 @@ namespace Tello_Drone
             }
 
         }
+
 
     }
 }

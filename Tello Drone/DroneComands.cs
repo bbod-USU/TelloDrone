@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 
 namespace Tello_Drone
 {
@@ -6,9 +7,9 @@ namespace Tello_Drone
     {
         private readonly IUdpClientWrapper _udpClient;
 
-        public DroneComands()
+        public DroneComands(IConsoleLogger consoleLogger)
         {
-            var udpClient = new UdpClientWrapper(127001, 8000);
+            var udpClient = new UdpClientWrapper(consoleLogger);
             _udpClient = udpClient;
         }
 

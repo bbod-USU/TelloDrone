@@ -15,7 +15,8 @@ namespace Tello_Drone
 
         public void RunMission1()
         {
-
+            _drone.Down();
+            _drone.Up();
         }
 
         private void MissionSetup()
