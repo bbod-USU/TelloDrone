@@ -12,7 +12,7 @@ namespace Tello_Drone
             _udpClient = udpClient;
         }
 
-        public void Forward(int x) =>SendCommand() ($"forward {x}");
+        public void Forward(int x) =>SendCommand($"forward {x}");
         public void Reverse(int x) => SendCommand($"back {x}");
         public void Up(int z) => SendCommand($"up {z}");
         public void Down(int z) => SendCommand($"down {z}");
@@ -23,7 +23,12 @@ namespace Tello_Drone
         public void TakeOff() => SendCommand("takeoff");
         public void Land() => SendCommand("land");
         public void RotateClockWise(int r) => SendCommand($"cw {r}");
-        
+        public void FrontFlip() => SendCommand($"flip f");
+        public void BackFlip() => SendCommand($"flip b");
+        public void RightFlip() => SendCommand($"flip r");
+        public void LeftFlip() => SendCommand($"flip l");
+
+
         
         
         
@@ -31,14 +36,14 @@ namespace Tello_Drone
 
         private void SendCommand(string message)
         {
-            var returnValue = _udpClient.TrySend(message, 0_500, 3);
+            var returnValue = _udpClient.TrySend(message, 5_000, 3);
             if (returnValue == false)
                 SendCommand("land");
         }
 
         private bool TrySendCommand(string message)
         {
-            return _udpClient.TrySend(message, 0_500, 3);
+            return _udpClient.TrySend(message, 5_000, 3);
 
         }
     }

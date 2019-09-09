@@ -21,7 +21,7 @@ namespace Tello_Drone
            var dronePortNumber = Convert.ToInt32(Console.ReadLine());
             if (droneIpAddress != null)
             {
-                _client = new UdpClient(droneIpAddress ?? throw new NullReferenceException($"{nameof(droneIpAddress)} was null."), dronePortNumber);
+                _client = new UdpClient(droneIpAddress, dronePortNumber);
                 _sendIpEndPoint = new IPEndPoint(IPAddress.Parse(droneIpAddress),
                     dronePortNumber);
             }

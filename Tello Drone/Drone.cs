@@ -20,6 +20,10 @@ namespace Tello_Drone
         public void TakeOff() => _droneCommands.TakeOff();
         public void Land() => _droneCommands.Land();
         public void RotateClockWise(int r) => _droneCommands.RotateClockWise(r);
+        public void FrontFlip() => _droneCommands.FrontFlip();
+        public void BackFlip() => _droneCommands.BackFlip();
+        public void RightFlip() => _droneCommands.RightFlip();
+        public void LeftFlip() => _droneCommands.LeftFlip();
 
 
     }

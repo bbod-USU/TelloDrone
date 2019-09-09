@@ -4,12 +4,22 @@ namespace Tello_Drone
     {
         private Drone _drone;
         private int _setupRetry;
+
         
         public Missions( IDroneFactory droneFactory)
         {
             _drone = droneFactory.CreateDrone;
         }
 
+        public void SetUpDrone()
+        {  
+            var inCommandMode = false;
+            while (inCommandMode != true && _setupRetry < 3)
+            {
+                inCommandMode = _drone.Command();
+                _setupRetry++;
+            }
+        }
         public void RunMission1()
         {
             MissionSetup();
@@ -18,14 +28,18 @@ namespace Tello_Drone
             MissionTeardown();
         }
 
+        public void RunMission2()
+        {
+            MissionSetup();
+            _drone.BackFlip();
+            _drone.FrontFlip();
+            _drone.Forward(30);
+            _drone.Land();
+        }
+
         private void MissionSetup()
         {
-            var inCommandMode = false;
-            while (inCommandMode != true && _setupRetry < 3)
-            {
-                inCommandMode = _drone.Command();
-                _setupRetry++;
-            }
+          
             
             if (!_drone.InitialTakeOff())
                 _drone.InitialTakeOff();

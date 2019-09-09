@@ -13,6 +13,10 @@ namespace Tello_Drone
         void TakeOff();
         void Land();
         void RotateClockWise(int r);
+        void FrontFlip();
+        void BackFlip();
+        void RightFlip();
+        void LeftFlip();
 
     }
 }

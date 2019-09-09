@@ -12,28 +12,36 @@ namespace Tello_Drone
         {
             _missions = missions;
             _consoleLogger = consoleLogger;
+            _missions.SetUpDrone();
         }
 
         public void Run()
         {
-            _consoleLogger.Log("Choose a mission to run.");
-            _consoleLogger.Log("1: Mission 1");
-            _consoleLogger.Log("2: Mission 2");
-            _consoleLogger.Log("3: Mission 3");
-
-            var userInput = Console.ReadLine();
-
-            switch (userInput)
+            while (true)
             {
-                case "1":
-                    _missions.RunMission1();
-                    break;
-                default:
-                    _consoleLogger.Log("Not A Valid Entry...Try Again");
-                    Run();
-                    break;
-            }
+                _consoleLogger.Log("Choose a mission to run.");
+                _consoleLogger.Log("1: Mission 1");
+                _consoleLogger.Log("2: Mission 2");
+                _consoleLogger.Log("3: Mission 3");
 
+                var userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        _missions.RunMission1();
+                        break;
+                    case "2":
+                        _missions.RunMission2();
+                        break;
+                    case "exit":
+                        return;
+                    default:
+                        _consoleLogger.Log("Not A Valid Entry...Try Again");
+                        Run();
+                        break;
+                }
+            }
         }
 
 
