@@ -34,17 +34,14 @@ namespace Tello_Drone
         
         
 
-        private void SendCommand(string message)
+        private bool SendCommand(string message)
         {
-            var returnValue = _udpClient.TrySend(message, 5_000, 3);
-            if (returnValue == false)
-                SendCommand("land");
+            return _udpClient.TrySend(message, 5_000, 3);
         }
 
         private bool TrySendCommand(string message)
         {
-            return _udpClient.TrySend(message, 5_000, 3);
-
+            return _udpClient.TrySend(message, 20_000, 3);
         }
     }
 }

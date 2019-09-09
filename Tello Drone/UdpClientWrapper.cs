@@ -30,7 +30,7 @@ namespace Tello_Drone
         {
             _consoleLogger.Log($"Sending command to drone: {message}");
             bool successfullFlag = false;
-            while(maxRetries >= 0 && successfullFlag == false)
+            while(maxRetries > 0 && successfullFlag == false)
             {
                 _client.Client.ReceiveTimeout = timeout;
                 _client.Send(Encoding.ASCII.GetBytes(message), message.Length);
@@ -43,9 +43,10 @@ namespace Tello_Drone
                     if (returnMessage == "ok")
                         successfullFlag = true;
                 }
-                catch
+                catch(Exception x)
                 {
-                    _consoleLogger.Log($"Did not get a response from the drone will attempt {maxRetries.ToString()} more times");
+                    _consoleLogger.Log(x.Message);
+                    _consoleLogger.Log($"Recieved {x.Message} from the drone, will attempt {maxRetries.ToString()} more times");
                 }
 
                 maxRetries--;
