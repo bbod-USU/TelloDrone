@@ -35,12 +35,23 @@ namespace Tello_Drone
 
         private void SendCommand(string message)
         {
+<<<<<<< Updated upstream
             _udpClient.TrySend(message, 5_000, 3);
+=======
+            var returnValue = _udpClient.TrySend(message, 5_000, 3);
+            if (returnValue == false)
+                SendCommand("land");
+>>>>>>> Stashed changes
         }
 
         private bool TrySendCommand(string message)
         {
+<<<<<<< Updated upstream
             return _udpClient.TrySend(message, 20_000, 3);
+=======
+            return _udpClient.TrySend(message, 5_000, 3);
+
+>>>>>>> Stashed changes
         }
     }
 }
