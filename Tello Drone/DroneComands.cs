@@ -6,10 +6,9 @@ namespace Tello_Drone
     {
         private readonly IUdpClientWrapper _udpClient;
 
-        public DroneComands(IConsoleLogger consoleLogger)
+        public DroneComands(IUdpClientWrapperFactory udpClientWrapperFactory)
         {
-            var udpClient = new UdpClientWrapper(consoleLogger);
-            _udpClient = udpClient;
+            _udpClient = udpClientWrapperFactory.Create();
         }
 
         public void Forward(int x) =>SendCommand($"forward {x}");
@@ -34,9 +33,9 @@ namespace Tello_Drone
         
         
 
-        private bool SendCommand(string message)
+        private void SendCommand(string message)
         {
-            return _udpClient.TrySend(message, 5_000, 3);
+            _udpClient.TrySend(message, 5_000, 3);
         }
 
         private bool TrySendCommand(string message)

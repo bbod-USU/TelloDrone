@@ -11,5 +11,6 @@ namespace Tello_Drone
             LogReceived?.Invoke(message);
             Console.WriteLine(message);
         }
+        
     }
 }
