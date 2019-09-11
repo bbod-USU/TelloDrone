@@ -33,15 +33,10 @@ namespace Tello_Drone
             MissionSetup();
             _drone.BackFlip();
             _drone.FrontFlip();
-<<<<<<< Updated upstream
             _drone.Reverse(300);
             _drone.Forward(66);
             _drone.Up(20);
-            MissionTeardown();            
-=======
-            _drone.Forward(30);
-            _drone.Land();
->>>>>>> Stashed changes
+            MissionTeardown();
         }
 
         private void MissionSetup()
