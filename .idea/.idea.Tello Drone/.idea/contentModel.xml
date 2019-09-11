@@ -26,11 +26,19 @@
         <e p="IConsoleLogger.cs" t="Include" />
         <e p="IDroneCommands.cs" t="Include" />
         <e p="IDroneFactory.cs" t="Include" />
+        <e p="IMissionCommander.cs" t="Include" />
+        <e p="IMissionList.cs" t="Include" />
         <e p="IMissions.cs" t="Include" />
         <e p="IModule.cs" t="Include" />
         <e p="IUdpClientWrapper.cs" t="Include" />
         <e p="IUdpClientWrapperFactory.cs" t="Include" />
-        <e p="Missions.cs" t="Include" />
+        <e p="MissionCommander.cs" t="Include" />
+        <e p="MissionList.cs" t="Include" />
+        <e p="Missions" t="Include">
+          <e p="Mission1.cs" t="Include" />
+          <e p="Mission2.cs" t="Include" />
+          <e p="Mission3.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">
@@ -40,6 +48,7 @@
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Tello Drone.csproj" t="IncludeRecursive" />
+        <e p="TestNameAttributes.cs" t="Include" />
         <e p="UdpClientWrapper.cs" t="Include" />
         <e p="UdpClientWrapperFactory.cs" t="Include" />
       </e>

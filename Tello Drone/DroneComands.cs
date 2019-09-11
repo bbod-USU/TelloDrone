@@ -1,5 +1,3 @@
-
-
 namespace Tello_Drone
 {
     public class DroneComands : IDroneCommands 
