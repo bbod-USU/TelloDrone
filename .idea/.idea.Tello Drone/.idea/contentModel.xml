@@ -46,6 +46,7 @@
             </e>
           </e>
         </e>
+        <e p="Program.cs" t="Include" />
         <e p="Tello Drone.csproj" t="IncludeRecursive" />
         <e p="UdpClientWrapper.cs" t="Include" />
         <e p="UdpClientWrapperFactory.cs" t="Include" />

@@ -5,8 +5,10 @@ namespace Tello_Drone.Missions
 
         public void Run(Drone drone)
         {
-            drone.Up(20);
-            drone.Land();
+            drone.Up(20); 
+            drone.Forward(20);
+            drone.RotateClockWise(90);
+            drone.BackFlip();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Tello_Drone
         private readonly UdpClient _client;
         private IPEndPoint _sendIpEndPoint;
         private IConsoleLogger _consoleLogger;
-
+        
 
         public UdpClientWrapper(IConsoleLogger consoleLogger)
         {
