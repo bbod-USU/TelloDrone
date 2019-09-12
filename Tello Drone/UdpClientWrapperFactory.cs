@@ -1,5 +1,3 @@
-using System.Dynamic;
-
 namespace Tello_Drone
 {
     public class UdpClientWrapperFactory : IUdpClientWrapperFactory

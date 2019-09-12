@@ -9,6 +9,7 @@ namespace Tello_Drone.Missions
             drone.BackFlip();
             drone.Left(20);
             drone.Right(20);
+            drone.Reverse(30);
         }
     }
 }

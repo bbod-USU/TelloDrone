@@ -46,9 +46,7 @@
             </e>
           </e>
         </e>
-        <e p="Program.cs" t="Include" />
         <e p="Tello Drone.csproj" t="IncludeRecursive" />
-        <e p="TestNameAttributes.cs" t="Include" />
         <e p="UdpClientWrapper.cs" t="Include" />
         <e p="UdpClientWrapperFactory.cs" t="Include" />
       </e>
@@ -58,6 +56,9 @@
         <e p="ConsoleLoggerTests.cs" t="Include" />
         <e p="DroneCommandsTests.cs" t="Include" />
         <e p="DroneFactoryTests.cs" t="Include" />
+        <e p="DroneTests.cs" t="Include" />
+        <e p="MissionCommanderTests.cs" t="Include" />
+        <e p="MissionListTests.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp2.2" t="Include">

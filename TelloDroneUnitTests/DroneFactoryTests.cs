@@ -2,7 +2,7 @@ using Moq;
 using NUnit.Framework;
 using Tello_Drone;
 
-namespace Tests
+namespace TelloDroneUnitTests
 {
     public class DroneFactoryTests
     {

@@ -1,7 +1,3 @@
-using System;
-using System.Linq;
-using System.Security.Authentication.ExtendedProtection;
-
 namespace Tello_Drone
 {
     public class MissionCommander : IMissionCommander
@@ -15,12 +11,13 @@ namespace Tello_Drone
 
         public void RunMission(IMissions mission)
         {
-            SetUpDrone(3);
+            if(!SetUpDrone(3))
+                return;
             mission.Run(_drone);
             TearDownDrone();
         }
 
-        private void SetUpDrone(int retryCount)
+        private bool SetUpDrone(int retryCount)
         {
             var inCommandMode = false;
             while (inCommandMode != true && retryCount > 0)
@@ -28,7 +25,11 @@ namespace Tello_Drone
                 inCommandMode = _drone.Command();
                 retryCount--;
             }
+
+            if (!inCommandMode)
+                return false;
             _drone.TakeOff();
+            return true;
         }
 
         private void TearDownDrone()
